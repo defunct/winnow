@@ -1,0 +1,16 @@
+DEVIATE
+
+Winnowing conditions.
+
+    Issues and Tasks: http://blogometer.com/trac/incubator
+    Source: http://github.com/bigeasy/deviate/tree/master
+    Contact: alan@blogometer.com
+
+MOTIVATION
+
+Deviate was created for Guicelets to match conditions set on URL to
+controller bindings and to implement controller to view bindings.
+
+Deviate provides a means to test against a set of anded conditions,
+winnowing down the tests, by testing the most likely to be specified
+conditions first.
