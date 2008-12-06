@@ -10,7 +10,7 @@ public class Deviations<T>
 {
     private final Node root;
     
-    private final Map<List<Node>, T> mapOfValues;
+    private final Map<List<Set<Match>>, List<T>> mapOfValues;
 
     private final int size;
     
@@ -22,7 +22,7 @@ public class Deviations<T>
         }
         this.size = size;
         this.root = new Node(null);
-        this.mapOfValues = new HashMap<List<Node>, T>();
+        this.mapOfValues = new HashMap<List<Set<Match>>, List<T>>();
     }
     
     public void put(List<Set<Match>> listOfMatches, T value)
@@ -31,20 +31,26 @@ public class Deviations<T>
         {
             throw new IllegalArgumentException();
         }
-        List<Node> listOfNodes = new ArrayList<Node>(size);
+        List<Set<Match>> key = new ArrayList<Set<Match>>(size);
         Node node = root;
         for (int i = 0; i < size; i++)
         {
             node = getChild(node, listOfMatches.get(i));
-            listOfNodes.add(node);
+            key.add(node.matches);
         }
-        mapOfValues.put(listOfNodes, value);
+        List<T> values = mapOfValues.get(key);
+        if (values == null)
+        {
+            values = new ArrayList<T>();
+            mapOfValues.put(key, values);
+        }
+        values.add(value);
     }
     
     public List<T> get(Object...objects)
     {
         List<T> values = new ArrayList<T>();
-        List<Node> path = new ArrayList<Node>();
+        List<Set<Match>> path = new ArrayList<Set<Match>>();
         for (Node node : root.children)
         {
             descend(values, path, node, objects, 0);
@@ -52,15 +58,15 @@ public class Deviations<T>
         return values;
     }
     
-    private void descend(List<T> values, List<Node> path, Node node, Object[] objects, int index)
+    private void descend(List<T> values, List<Set<Match>> path, Node node, Object[] objects, int index)
     {
         if (node.matches(objects[index]))
         {
-            List<Node> pathOfChild = new ArrayList<Node>(path);
-            pathOfChild.add(node);
+            List<Set<Match>> pathOfChild = new ArrayList<Set<Match>>(path);
+            pathOfChild.add(node.matches);
             if (index + 1 == size)
             {
-                values.add(mapOfValues.get(pathOfChild));
+                values.addAll(mapOfValues.get(pathOfChild));
             }
             else
             {

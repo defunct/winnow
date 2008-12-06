@@ -1,5 +1,6 @@
 package com.goodworkalan.deviate;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertEquals;
 
@@ -35,16 +36,46 @@ public class DeviateTest
     }
     
     @Test
-    public void add()
+    public void put()
     {
         Deviations<String> deviations = new Deviations<String>(3);
         put(deviations, "X", new Any(), new Any(), new Any());
+    }
+    
+    @Test(expectedExceptions=IllegalArgumentException.class)
+    public void badPut()
+    {
+        Deviations<String> deviations = new Deviations<String>(3);
+        put(deviations, "X", new Any(), new Any());
     }
     
     @Test
     public void any()
     {
         assertTrue(new Any().match(null));
+        assertTrue(new Any().equals(new Any()));
+        assertFalse(new Any().equals("Fred"));
+        assertEquals(new Any().hashCode(), 17);
+    }
+    
+    @Test
+    public void equals()
+    {
+        Equals equals = new Equals("X");
+        assertTrue(equals.equals(equals));
+        assertFalse(new Equals("X").equals("X"));
+        assertTrue(new Equals("X").equals(new Equals("X")));
+        assertFalse(new Equals("X").equals(new Equals("Y")));
+        assertTrue(new Equals(null).equals(new Equals(null)));
+        assertFalse(new Equals("X").equals(new Equals(null)));
+        assertFalse(new Equals(null).equals(new Equals("X")));
+        assertEquals(new Equals("X").hashCode(), "X".hashCode());
+        assertEquals(new Equals(null).hashCode(), 17);
+        assertTrue(new Equals("X").match("X"));
+        assertFalse(new Equals("X").match("Y"));
+        assertTrue(new Equals(null).match(null));
+        assertFalse(new Equals("X").match(null));
+        assertFalse(new Equals(null).match("X"));
     }
     
     @Test
@@ -55,5 +86,25 @@ public class DeviateTest
         List<String> strings = deviations.get(null, null, null);
         assertEquals(strings.size(), 1);
         assertEquals(strings.get(0), "X");
+    }
+    
+    @Test
+    public void notFound()
+    {
+        Deviations<String> deviations = new Deviations<String>(3);
+        put(deviations, "X", new Equals("A"), new Equals("B"), new Any());
+        put(deviations, "X", new Equals("A"), new Equals("C"), new Any());
+        put(deviations, "Y", new Equals("A"), new Equals("C"), new Any());
+        List<String> strings = deviations.get(null, null, null);
+        assertEquals(strings.size(), 0);
+        strings = deviations.get("A", "A", "A");
+        assertEquals(strings.size(), 0);
+        strings = deviations.get("A", "B", "C");
+        assertEquals(strings.size(), 1);
+        assertEquals(strings.get(0), "X");
+        strings = deviations.get("A", "C", "C");
+        assertEquals(strings.size(), 2);
+        assertEquals(strings.get(0), "X");
+        assertEquals(strings.get(1), "Y");
     }
 }
