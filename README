@@ -1,4 +1,4 @@
-DEVIATE
+DIVERGE
 
 Winnowing conditions.
 
@@ -8,9 +8,9 @@ Winnowing conditions.
 
 MOTIVATION
 
-Deviate was created for Guicelets to match conditions set on URL to
+Diverge was created for Guicelets to match conditions set on URL to
 controller bindings and to implement controller to view bindings.
 
-Deviate provides a means to test against a set of anded conditions,
+Diverge provides a means to test against a set of anded conditions,
 winnowing down the tests, by testing the most likely to be specified
 conditions first.

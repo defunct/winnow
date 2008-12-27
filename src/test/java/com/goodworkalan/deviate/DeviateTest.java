@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class DeviateTest
 {
-    private static <T> void put(Deviations<T> deviations, T value, Match...matches)
+    private static <T> void put(Conditions<T> deviations, T value, Match...matches)
     {
         List<Set<Match>> listOfMatches = new ArrayList<Set<Match>>();
         for (Match match : matches)
@@ -26,26 +26,26 @@ public class DeviateTest
     @Test(expectedExceptions=IllegalArgumentException.class)
     public void toSmall()
     {
-        new Deviations<String>(0);
+        new Conditions<String>(0);
     }
 
     @Test
     public void create()
     {
-        new Deviations<String>(3);
+        new Conditions<String>(3);
     }
     
     @Test
     public void put()
     {
-        Deviations<String> deviations = new Deviations<String>(3);
+        Conditions<String> deviations = new Conditions<String>(3);
         put(deviations, "X", new Any(), new Any(), new Any());
     }
     
     @Test(expectedExceptions=IllegalArgumentException.class)
     public void badPut()
     {
-        Deviations<String> deviations = new Deviations<String>(3);
+        Conditions<String> deviations = new Conditions<String>(3);
         put(deviations, "X", new Any(), new Any());
     }
     
@@ -81,7 +81,7 @@ public class DeviateTest
     @Test
     public void get()
     {
-        Deviations<String> deviations = new Deviations<String>(3);
+        Conditions<String> deviations = new Conditions<String>(3);
         put(deviations, "X", new Any(), new Any(), new Any());
         List<String> strings = deviations.get(null, null, null);
         assertEquals(strings.size(), 1);
@@ -91,7 +91,7 @@ public class DeviateTest
     @Test
     public void notFound()
     {
-        Deviations<String> deviations = new Deviations<String>(3);
+        Conditions<String> deviations = new Conditions<String>(3);
         put(deviations, "X", new Equals("A"), new Equals("B"), new Any());
         put(deviations, "X", new Equals("A"), new Equals("C"), new Any());
         put(deviations, "Y", new Equals("A"), new Equals("C"), new Any());
