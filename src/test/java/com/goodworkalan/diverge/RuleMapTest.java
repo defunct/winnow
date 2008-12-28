@@ -12,7 +12,7 @@ import com.goodworkalan.diverge.Any;
 import com.goodworkalan.diverge.Equals;
 import com.goodworkalan.diverge.RuleMapBuilder;
 
-public class ConditionsTest
+public class RuleMapTest
 {
     @Test
     public void create()
