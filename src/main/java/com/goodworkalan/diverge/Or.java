@@ -1,14 +1,14 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.diverge;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class And implements Condition
+public class Or
 {
     private final Set<Condition> conditions;
     
-    public And(Condition...conditions)
+    public Or(Condition...conditions)
     {
         this.conditions = new HashSet<Condition>(Arrays.asList(conditions));
     }
@@ -17,12 +17,12 @@ public class And implements Condition
     {
         for (Condition condition : conditions)
         {
-            if (!condition.test(object))
+            if (condition.test(object))
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
     
     @Override
@@ -32,14 +32,14 @@ public class And implements Condition
         {
             return true;
         }
-        if (object instanceof And)
+        if (object instanceof Or)
         {
-            And and = (And) object;
-            return conditions.equals(and.conditions);
+            Or or = (Or) object;
+            return conditions.equals(or.conditions);
         }
         return false;
     }
-    
+
     @Override
     public int hashCode()
     {

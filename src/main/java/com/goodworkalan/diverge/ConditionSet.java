@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.diverge;
 
 import java.util.HashSet;
 import java.util.Map;

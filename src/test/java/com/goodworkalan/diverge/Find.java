@@ -1,6 +1,8 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.diverge;
 
 import java.util.regex.Pattern;
+
+import com.goodworkalan.diverge.Condition;
 
 public class Find implements Condition
 {

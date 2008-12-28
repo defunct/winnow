@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.diverge;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -7,6 +7,10 @@ import static org.testng.Assert.assertTrue;
 import java.util.List;
 
 import org.testng.annotations.Test;
+
+import com.goodworkalan.diverge.Any;
+import com.goodworkalan.diverge.Equals;
+import com.goodworkalan.diverge.RuleMapBuilder;
 
 public class ConditionsTest
 {
