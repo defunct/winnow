@@ -1,8 +1,8 @@
 package com.goodworkalan.deviate;
 
-public class Any implements Match
+public class Any implements Condition
 {
-    public boolean match(Object object)
+    public boolean test(Object object)
     {
         return true;
     }

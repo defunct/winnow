@@ -1,6 +1,6 @@
 package com.goodworkalan.deviate;
 
-public class Equals implements Match
+public class Equals implements Condition
 {
     private final Object expected;
     
@@ -9,7 +9,7 @@ public class Equals implements Match
         this.expected = expected;
     }
     
-    public boolean match(Object object)
+    public boolean test(Object object)
     {
         if (expected == null)
         {
