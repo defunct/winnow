@@ -52,9 +52,9 @@ public class RuleMapBuilder<T>
         }
     }
     
-    public Expression<T> expression()
+    public RuleBuilder<T> rule()
     {
-        return new Expression<T>(this);
+        return new RuleBuilder<T>(this);
     }
     
     public RuleMap<T> newRuleMap()

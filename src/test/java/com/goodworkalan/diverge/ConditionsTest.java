@@ -24,7 +24,7 @@ public class ConditionsTest
     public void put()
     {
         RuleMapBuilder<String> conditions = new RuleMapBuilder<String>();
-        conditions.expression()
+        conditions.rule()
                   .check(one, new Find("a")).or(new Find("b")).put("X");
         List<String> strings = conditions.newRuleMap().test().put(one, "a").get();
         assertEquals(strings.size(), 1);
@@ -66,18 +66,18 @@ public class ConditionsTest
     public void get()
     {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
-        newRules.expression().check(one, new Any()).put("X");
+        newRules.rule().check(one, new Any()).put("X");
     }
     
     @Test
     public void notFound()
     {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
-        newRules.expression()
+        newRules.rule()
             .check(one, new Equals("A")).or(new Equals("B")).put("X");
-        newRules.expression()
+        newRules.rule()
             .check(one, new Equals("A")).or(new Equals("C")).put("X");
-        newRules.expression()
+        newRules.rule()
             .check(one, new Equals("A")).or(new Equals("C")).put("Y");
         newRules.newRuleMap().test().put(one, "A").put(two, "B").get();
     }
