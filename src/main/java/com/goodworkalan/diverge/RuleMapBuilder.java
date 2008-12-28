@@ -52,9 +52,9 @@ public class RuleMapBuilder<T>
         }
     }
     
-    public RuleBuilder<T> rule()
+    public RuleSetBuilder<T> rule()
     {
-        return new RuleBuilder<T>(this);
+        return new RuleSetBuilder<T>(this);
     }
     
     public RuleMap<T> newRuleMap()

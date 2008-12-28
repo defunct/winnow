@@ -4,11 +4,11 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.goodworkalan</groupId>
-    <artifactId>deviate</artifactId>
+    <artifactId>diverge</artifactId>
     <packaging>jar</packaging>
     <version>0.1.X</version>
 
-    <name>deviate</name>
+    <name>diverge</name>
     <description>Match a path.</description>
 
     <organization>
