@@ -74,7 +74,7 @@ public class RuleMapTest
     {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
         newRules.rule()
-                .check(one, new Equals("A")).or(new Equals("B")).put("W");
+                .check(one, new Equals("A")).check(one, new Equals("B")).put("W");
         newRules.rule()
                 .check(one, new Equals("A")).or(new Equals("C")).put("X");
         newRules.rule()
@@ -101,5 +101,11 @@ public class RuleMapTest
         assertEquals(strings.size(), 1);
         strings = rules.test().put(one, "X").put(two, "Y").get();
         assertEquals(strings.size(), 0);
+    }
+    
+    @Test(expectedExceptions=NullPointerException.class)
+    public void npePutExpression()
+    {
+        new RuleMapBuilder<String>().put(null, "X");
     }
 }
