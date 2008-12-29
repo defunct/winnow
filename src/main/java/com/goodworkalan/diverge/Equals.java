@@ -50,4 +50,9 @@ public class Equals implements Condition
     {
         return expected == null ? 17 : expected.hashCode();
     }
+    
+    public String toString()
+    {
+        return "Equals(" + expected + ")";
+    }
 }

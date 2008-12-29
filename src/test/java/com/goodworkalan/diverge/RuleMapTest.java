@@ -30,8 +30,8 @@ public class RuleMapTest
         assertEquals(strings.size(), 1);
     }
 
-    Object one = new Object();
-    Object two = new Object();
+    Object one = "ONE";
+    Object two = "TWO";
     
     @Test
     public void any()
@@ -74,11 +74,32 @@ public class RuleMapTest
     {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
         newRules.rule()
-            .check(one, new Equals("A")).or(new Equals("B")).put("X");
+                .check(one, new Equals("A")).or(new Equals("B")).put("W");
         newRules.rule()
-            .check(one, new Equals("A")).or(new Equals("C")).put("X");
+                .check(one, new Equals("A")).or(new Equals("C")).put("X");
         newRules.rule()
-            .check(one, new Equals("A")).or(new Equals("C")).put("Y");
-        newRules.newRuleMap().test().put(one, "A").put(two, "B").get();
+                .check(one, new Equals("A")).or(new Equals("C")).put("Y");
+        newRules.rule()
+                .check(one, new Equals("A")).or(new Equals("C")).or(new Equals("X"))
+                .check(two, new Equals("C")).put("Z");
+        newRules.rule()
+                .check(one, new Equals("A"))
+                .check(two, new Equals("C")).put("M");
+        newRules.rule()
+                .check(one, new Equals("B"))
+                .check(two, new Equals("C")).put("N");
+        newRules.rule()
+                .check(one, new Equals("Z"))
+                .check(two, new Equals("C")).put("O");
+        newRules.rule()
+                .check(one, new Equals("D"))
+                .check(two, new Equals("C")).put("P");
+        RuleMap<String> rules = newRules.newRuleMap();
+        List<String> strings = rules.test().put(one, "A").put(two, "B").get();
+        assertEquals(strings.size(), 3);
+        strings = rules.test().put(one, "B").put(two, "B").get();
+        assertEquals(strings.size(), 1);
+        strings = rules.test().put(one, "X").put(two, "Y").get();
+        assertEquals(strings.size(), 0);
     }
 }

@@ -54,7 +54,7 @@ public class RuleMapBuilder<T>
     
     public RuleSetBuilder<T> rule()
     {
-        return new RuleSetBuilder<T>(this);
+        return new RuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
     }
     
     public RuleMap<T> newRuleMap()
@@ -67,7 +67,7 @@ public class RuleMapBuilder<T>
             {
                 public int compare(Map<Object, Condition> o1, Map<Object, Condition> o2)
                 {
-                    return toIdentifier.get(o1).size() - toIdentifier.get(o2).size();
+                    return toIdentifier.get(o2).size() - toIdentifier.get(o1).size();
                 }
             });
         
