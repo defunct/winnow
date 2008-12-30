@@ -27,16 +27,16 @@ public class RuleMapBuilder<T>
         this.toIdentifier = new LinkedHashMap<Map<Object, Condition>, Set<Integer>>();
     }
 
-    public void put(Map<Object, Set<Condition>> conditions, T value)
+    public void put(Map<Object, Set<Condition>> expression, T value)
     {
-        if (conditions == null)
+        if (expression == null)
         {
             throw new NullPointerException();
         }
         int id = nextIdentifier++;
         values.put(id, value);
-        toCondition.put(id, conditions);
-        for (Map.Entry<Object, Set<Condition>> test : conditions.entrySet())
+        toCondition.put(id, expression);
+        for (Map.Entry<Object, Set<Condition>> test : expression.entrySet())
         {
             for (Condition condition : test.getValue())
             {
@@ -54,7 +54,7 @@ public class RuleMapBuilder<T>
     
     public RuleSetBuilder<T> rule()
     {
-        return new RuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
+        return new CoreRuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
     }
     
     public RuleMap<T> newRuleMap()
