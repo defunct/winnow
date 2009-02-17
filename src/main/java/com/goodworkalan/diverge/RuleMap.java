@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// FIXME Rename deviate.
 public class RuleMap<T>
 {
     private final Map<Integer, T> values;
