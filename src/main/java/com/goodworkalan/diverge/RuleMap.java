@@ -13,12 +13,16 @@ import java.util.Set;
 // FIXME Rename deviate.
 public class RuleMap<T>
 {
+    // TODO Document.
     private final Map<Integer, T> values;
     
+    // TODO Document.
     private final Map<Integer, Map<Object, Set<Condition>>> toCondition;
     
+    // TODO Document.
     private final Map<Map<Object, Condition>, Set<Integer>> toIdentifier;
     
+    // TODO Document.
     public RuleMap(Map<Integer, T> values, Map<Integer, Map<Object, Set<Condition>>> toCondition, Map<Map<Object, Condition>, Set<Integer>> toIdentifier)
     {
         this.values = values;
@@ -26,6 +30,7 @@ public class RuleMap<T>
         this.toIdentifier = toIdentifier;
     }
     
+    // TODO Document.
     public List<T> get(Map<Object, Object> map)
     {
         // Create a copy for elimination.
@@ -121,6 +126,7 @@ public class RuleMap<T>
         return objects;
     }
 
+    // TODO Document.
     public KeyedParameters<T> test()
     {
         return new KeyedParameters<T>(this);

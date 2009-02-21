@@ -10,16 +10,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// TODO Document.
 public class RuleMapBuilder<T>
 {
+    // TODO Document.
     private final Map<Integer, T> values;
     
+    // TODO Document.
     private final Map<Integer, Map<Object, Set<Condition>>> toCondition;
     
+    // TODO Document.
     private final Map<Map<Object, Condition>, Set<Integer>> toIdentifier;
     
+    // TODO Document.
     private int nextIdentifier;
     
+    // TODO Document.
     public RuleMapBuilder()
     {
         this.values = new HashMap<Integer, T>();
@@ -27,6 +33,7 @@ public class RuleMapBuilder<T>
         this.toIdentifier = new LinkedHashMap<Map<Object, Condition>, Set<Integer>>();
     }
 
+    // TODO Document.
     public void put(Map<Object, Set<Condition>> expression, T value)
     {
         if (expression == null)
@@ -52,11 +59,13 @@ public class RuleMapBuilder<T>
         }
     }
     
+    // TODO Document.
     public RuleSetBuilder<T> rule()
     {
         return new CoreRuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
     }
     
+    // TODO Document.
     public RuleMap<T> newRuleMap()
     {
         // Dirty means we've added new conditions. If so, we need to copy

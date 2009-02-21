@@ -4,15 +4,19 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO Document.
 public class And implements Condition
 {
+    // TODO Document.
     private final Set<Condition> conditions;
     
+    // TODO Document.
     public And(Condition...conditions)
     {
         this.conditions = new HashSet<Condition>(Arrays.asList(conditions));
     }
     
+    // TODO Document.
     public boolean test(Object object)
     {
         for (Condition condition : conditions)
@@ -25,6 +29,7 @@ public class And implements Condition
         return true;
     }
     
+    // TODO Document.
     @Override
     public boolean equals(Object object)
     {
@@ -40,6 +45,7 @@ public class And implements Condition
         return false;
     }
     
+    // TODO Document.
     @Override
     public int hashCode()
     {

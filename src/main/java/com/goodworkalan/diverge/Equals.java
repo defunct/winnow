@@ -1,14 +1,18 @@
 package com.goodworkalan.diverge;
 
+// TODO Document.
 public class Equals implements Condition
 {
+    // TODO Document.
     private final Object expected;
     
+    // TODO Document.
     public Equals(Object expected)
     {
         this.expected = expected;
     }
     
+    // TODO Document.
     public boolean test(Object object)
     {
         if (expected == null)
@@ -22,6 +26,7 @@ public class Equals implements Condition
         return expected.equals(object);
     }
     
+    // TODO Document.
     @Override
     public boolean equals(Object object)
     {
@@ -45,12 +50,14 @@ public class Equals implements Condition
         return false;
     }
     
+    // TODO Document.
     @Override
     public int hashCode()
     {
         return expected == null ? 17 : expected.hashCode();
     }
     
+    // TODO Document.
     public String toString()
     {
         return "Equals(" + expected + ")";
