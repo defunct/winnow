@@ -1,4 +1,4 @@
-package com.goodworkalan.diverge;
+package com.goodworkalan.deviate;
 
 // TODO Document.
 public interface Condition

@@ -4,12 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.goodworkalan</groupId>
-    <artifactId>diverge</artifactId>
+    <artifactId>deviate</artifactId>
     <packaging>jar</packaging>
     <version>0.1.X</version>
 
-    <name>diverge</name>
-    <description>Match a path.</description>
+    <name>deviate</name>
+    <description>Test an object against a set of conditions.</description>
 
     <organization>
         <name>Alan Gutierrez</name>

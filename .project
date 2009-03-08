@@ -1,6 +1,6 @@
 <projectDescription>
-  <name>diverge</name>
-  <comment>Match a path.</comment>
+  <name>deviate</name>
+  <comment>Test an object against a set of conditions.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

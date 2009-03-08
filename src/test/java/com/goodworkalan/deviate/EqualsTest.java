@@ -1,8 +1,10 @@
-package com.goodworkalan.diverge;
+package com.goodworkalan.deviate;
 
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
+
+import com.goodworkalan.deviate.Equals;
 
 public class EqualsTest
 {

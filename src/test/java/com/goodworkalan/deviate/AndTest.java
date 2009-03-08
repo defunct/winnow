@@ -1,10 +1,13 @@
-package com.goodworkalan.diverge;
+package com.goodworkalan.deviate;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
+
+import com.goodworkalan.deviate.And;
+import com.goodworkalan.deviate.Equals;
 
 public class AndTest
 {

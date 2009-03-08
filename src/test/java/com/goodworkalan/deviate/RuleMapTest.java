@@ -1,4 +1,4 @@
-package com.goodworkalan.diverge;
+package com.goodworkalan.deviate;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -8,9 +8,10 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.goodworkalan.diverge.Any;
-import com.goodworkalan.diverge.Equals;
-import com.goodworkalan.diverge.RuleMapBuilder;
+import com.goodworkalan.deviate.Any;
+import com.goodworkalan.deviate.Equals;
+import com.goodworkalan.deviate.RuleMap;
+import com.goodworkalan.deviate.RuleMapBuilder;
 
 public class RuleMapTest
 {
