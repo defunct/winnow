@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 /**
  * Negates a condition returning true if the contained condition is false.

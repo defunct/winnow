@@ -1,8 +1,8 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 import java.util.regex.Pattern;
 
-import com.goodworkalan.deviate.Condition;
+import com.goodworkalan.winnow.Condition;
 
 public class Find implements Condition
 {

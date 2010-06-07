@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 import java.util.Map;
 import java.util.Set;

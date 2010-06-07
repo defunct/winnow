@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 // TODO Document.
 public interface RuleBuilder<T> extends RuleSetBuilder<T>

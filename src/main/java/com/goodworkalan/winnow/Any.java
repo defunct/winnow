@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 /**
  * A test that always returns true.

@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -6,8 +6,8 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.goodworkalan.deviate.And;
-import com.goodworkalan.deviate.Equals;
+import com.goodworkalan.winnow.And;
+import com.goodworkalan.winnow.Equals;
 
 public class AndTest
 {

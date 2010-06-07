@@ -1,4 +1,4 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 /**
  * Tests to see if a property is an instance of a specific class.

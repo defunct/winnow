@@ -1,10 +1,10 @@
-package com.goodworkalan.deviate;
+package com.goodworkalan.winnow;
 
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
-import com.goodworkalan.deviate.Equals;
+import com.goodworkalan.winnow.Equals;
 
 public class EqualsTest
 {
