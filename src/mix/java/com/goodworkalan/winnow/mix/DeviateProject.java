@@ -5,13 +5,13 @@ import com.goodworkalan.mix.builder.Builder;
 import com.goodworkalan.mix.builder.JavaProject;
 
 /**
- * Builds the project definition for Deviate.
+ * Builds the project definition for Winnow.
  *
  * @author Alan Gutierrez
  */
-public class DeviateProject implements ProjectModule {
+public class WinnowProject implements ProjectModule {
     /**
-     * Build the project definition for Deviate.
+     * Build the project definition for Winnow.
      *
      * @param builder
      *          The project builder.
@@ -19,7 +19,7 @@ public class DeviateProject implements ProjectModule {
     public void build(Builder builder) {
         builder
             .cookbook(JavaProject.class)
-                .produces("com.github.bigeasy.deviate/deviate/0.1")
+                .produces("com.github.bigeasy.winnow/winnow/0.1")
                 .depends()
                     .development("org.testng/testng-jdk15/5.10")
                     .end()
