@@ -66,23 +66,18 @@ public class RuleMapBuilder<T> {
 	}
     
     // TODO Document.
-    public RuleMap<T> newRuleMap()
-    {
-        // Dirty means we've added new conditions. If so, we need to copy
-        // them over to our local
-        List<Map<Object, Condition>> conditions = new ArrayList<Map<Object, Condition>>(toIdentifier.keySet());
-        Collections.sort(conditions,
-            new Comparator<Map<Object, Condition>>()
-            {
-                public int compare(Map<Object, Condition> o1, Map<Object, Condition> o2)
-                {
-                    return toIdentifier.get(o2).size() - toIdentifier.get(o1).size();
-                }
-            });
+	public RuleMap<T> newRuleMap() {
+		// Dirty means we've added new conditions. If so, we need to copy
+		// them over to our local
+		List<Map<Object, Condition>> conditions = new ArrayList<Map<Object, Condition>>(toIdentifier.keySet());
+        Collections.sort(conditions, new Comparator<Map<Object, Condition>>() {
+            public int compare(Map<Object, Condition> o1, Map<Object, Condition> o2) {
+                return toIdentifier.get(o2).size() - toIdentifier.get(o1).size();
+            }
+        });
         
         Map<Map<Object, Condition>, Set<Integer>> newIdentifiers = new LinkedHashMap<Map<Object,Condition>, Set<Integer>>();
-        for (Map<Object, Condition> test : conditions)
-        {
+		for (Map<Object, Condition> test : conditions) {
             newIdentifiers.put(test, new HashSet<Integer>(toIdentifier.get(test)));
         }
 
