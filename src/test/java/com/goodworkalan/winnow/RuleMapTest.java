@@ -4,7 +4,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.annotations.Test;
 
@@ -19,10 +21,12 @@ public class RuleMapTest
     @Test
     public void put()
     {
-        RuleMapBuilder<String> conditions = new RuleMapBuilder<String>();
-        conditions.rule()
+        RuleMapBuilder<String> rules = new RuleMapBuilder<String>();
+        rules.rule()
                   .check(one, new Find("a")).or(new Find("b")).put("X");
-        List<String> strings = conditions.newRuleMap().test().put(one, "a").get();
+        Map<Object, Object> conditions = new HashMap<Object, Object>();
+        conditions.put(one, "a");
+        List<String> strings = rules.newRuleMap().get(conditions);
         assertEquals(strings.size(), 1);
     }
 
@@ -86,11 +90,20 @@ public class RuleMapTest
                 .check(one, new Equals("D"))
                 .check(two, new Equals("C")).put("P");
         RuleMap<String> rules = newRules.newRuleMap();
-        List<String> strings = rules.test().put(one, "A").put(two, "B").get();
+        Map<Object, Object> conditions = new HashMap<Object, Object>();
+        conditions.put(one, "A");
+        conditions.put(two, "B");
+        List<String> strings = rules.get(conditions);
         assertEquals(strings.size(), 3);
-        strings = rules.test().put(one, "B").put(two, "B").get();
+        conditions.clear();
+        conditions.put(one, "B");
+        conditions.put(two, "B");
+        strings = rules.get(conditions);
         assertEquals(strings.size(), 1);
-        strings = rules.test().put(one, "X").put(two, "Y").get();
+        conditions.clear();
+        conditions.put(one, "X");
+        conditions.put(two, "Y");
+        strings = rules.get(conditions);
         assertEquals(strings.size(), 0);
     }
     

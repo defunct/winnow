@@ -125,10 +125,4 @@ public class RuleMap<T>
 
         return objects;
     }
-
-    // TODO Document.
-    public KeyedParameters<T> test()
-    {
-        return new KeyedParameters<T>(this);
-    }
 }
