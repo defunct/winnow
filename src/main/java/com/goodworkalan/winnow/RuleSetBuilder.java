@@ -23,8 +23,7 @@ public class RuleSetBuilder<T> {
     protected final Map<Object, Set<Condition>> expression;
     
     // TODO Document.
-    public RuleSetBuilder(RuleMapBuilder<T> rules, Map<Object, Set<Condition>> expression)
-    {
+    public RuleSetBuilder(RuleMapBuilder<T> rules, Map<Object, Set<Condition>> expression) {
         this.rules = rules;
         this.expression = expression;
     }

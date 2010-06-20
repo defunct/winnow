@@ -10,13 +10,11 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-public class RuleMapTest
-{
-    @Test
-    public void create()
-    {
-        new RuleMapBuilder<String>().newRuleMap();
-    }
+public class RuleMapTest {
+	@Test
+	public void create() {
+		new RuleMapBuilder<String>().newRuleMap();
+	}
     
     @Test
 	public void put() {
