@@ -19,11 +19,10 @@ public class RuleMapTest
     }
     
     @Test
-    public void put()
-    {
+	public void put() {
         RuleMapBuilder<String> rules = new RuleMapBuilder<String>();
         rules.rule()
-                  .check(one, new Find("a")).or(new Find("b")).put("X");
+                  .check(one, new Find("a")).check(one, new Find("b")).put("X");
         Map<Object, Object> conditions = new HashMap<Object, Object>();
         conditions.put(one, "a");
         List<String> strings = rules.newRuleMap().get(conditions);
@@ -33,10 +32,9 @@ public class RuleMapTest
     Object one = "ONE";
     Object two = "TWO";
     
-    @Test
-    public void equals()
-    {
-        Equals equals = new Equals("X");
+	@Test
+	public void equals() {
+		Equals equals = new Equals("X");
         assertTrue(equals.equals(equals));
         assertFalse(new Equals("X").equals("X"));
         assertTrue(new Equals("X").equals(new Equals("X")));
@@ -53,9 +51,8 @@ public class RuleMapTest
         assertFalse(new Equals(null).test("X"));
     }
     
-    @Test
-    public void get()
-    {
+	@Test
+	public void get() {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
         newRules.rule().check(one, new Condition() {
 			public boolean test(Object object) {
@@ -65,17 +62,16 @@ public class RuleMapTest
     }
     
     @Test
-    public void notFound()
-    {
+	public void notFound() {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
         newRules.rule()
                 .check(one, new Equals("A")).check(one, new Equals("B")).put("W");
         newRules.rule()
-                .check(one, new Equals("A")).or(new Equals("C")).put("X");
+                .check(one, new Equals("A")).check(one, new Equals("C")).put("X");
         newRules.rule()
-                .check(one, new Equals("A")).or(new Equals("C")).put("Y");
+                .check(one, new Equals("A")).check(one, new Equals("C")).put("Y");
         newRules.rule()
-                .check(one, new Equals("A")).or(new Equals("C")).or(new Equals("X"))
+                .check(one, new Equals("A")).check(one, new Equals("C")).check(one, new Equals("X"))
                 .check(two, new Equals("C")).put("Z");
         newRules.rule()
                 .check(one, new Equals("A"))
@@ -107,9 +103,8 @@ public class RuleMapTest
         assertEquals(strings.size(), 0);
     }
     
-    @Test(expectedExceptions=NullPointerException.class)
-    public void npePutExpression()
-    {
-        new RuleMapBuilder<String>().put(null, "X");
-    }
+	@Test(expectedExceptions = NullPointerException.class)
+	public void npePutExpression() {
+		new RuleMapBuilder<String>().put(null, "X");
+	}
 }

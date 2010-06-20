@@ -31,37 +31,39 @@ public class RuleMapBuilder<T> {
         this.toIdentifier = new LinkedHashMap<Map<Object, Condition>, Set<Integer>>();
     }
 
-    // TODO Document.
-    public void put(Map<Object, Set<Condition>> expression, T value)
-    {
-        if (expression == null)
-        {
-            throw new NullPointerException();
-        }
-        int id = nextIdentifier++;
-        values.put(id, value);
-        toCondition.put(id, expression);
-        for (Map.Entry<Object, Set<Condition>> test : expression.entrySet())
-        {
-            for (Condition condition : test.getValue())
-            {
+	/**
+	 * Map the given conditions to the given value.
+	 * 
+	 * @param conditions
+	 *            The expression.
+	 * @param value
+	 *            The value.
+	 */
+	public void put(Map<Object, Set<Condition>> conditions, T value) {
+		Map<Object, Set<Condition>> duplicate = new HashMap<Object, Set<Condition>>();
+		for (Map.Entry<Object, Set<Condition>> test : conditions.entrySet()) {
+			duplicate.put(test.getKey(), new HashSet<Condition>(test.getValue()));
+		}
+		int id = nextIdentifier++;
+		values.put(id, value);
+		toCondition.put(id, conditions);
+		for (Map.Entry<Object, Set<Condition>> test : conditions.entrySet()) {
+			for (Condition condition : test.getValue()) {
                 Map<Object, Condition> key = Collections.singletonMap(test.getKey(), condition);
                 Set<Integer> ids = toIdentifier.get(key);
-                if (ids == null)
-                {
-                    ids = new HashSet<Integer>();
-                    toIdentifier.put(key, ids);
-                }
-                ids.add(id);
+				if (ids == null) {
+					ids = new HashSet<Integer>();
+					toIdentifier.put(key, ids);
+				}
+				ids.add(id);
             }
         }
     }
     
     // TODO Document.
-    public RuleSetBuilder<T> rule()
-    {
-        return new RuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
-    }
+	public RuleSetBuilder<T> rule() {
+		return new RuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
+	}
     
     // TODO Document.
     public RuleMap<T> newRuleMap()
