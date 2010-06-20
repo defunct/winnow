@@ -8,11 +8,6 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.goodworkalan.winnow.Any;
-import com.goodworkalan.winnow.Equals;
-import com.goodworkalan.winnow.RuleMap;
-import com.goodworkalan.winnow.RuleMapBuilder;
-
 public class RuleMapTest
 {
     @Test
@@ -33,15 +28,6 @@ public class RuleMapTest
 
     Object one = "ONE";
     Object two = "TWO";
-    
-    @Test
-    public void any()
-    {
-        assertTrue(new Any().test(null));
-        assertTrue(new Any().equals(new Any()));
-        assertFalse(new Any().equals("Fred"));
-        assertEquals(new Any().hashCode(), 17);
-    }
     
     @Test
     public void equals()
@@ -67,7 +53,11 @@ public class RuleMapTest
     public void get()
     {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
-        newRules.rule().check(one, new Any()).put("X");
+        newRules.rule().check(one, new Condition() {
+			public boolean test(Object object) {
+				return true;
+			}
+		}).put("X");
     }
     
     @Test
