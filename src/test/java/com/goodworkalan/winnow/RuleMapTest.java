@@ -11,13 +11,13 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 public class RuleMapTest {
-	@Test
-	public void create() {
-		new RuleMapBuilder<String>().newRuleMap();
-	}
+    @Test
+    public void create() {
+        new RuleMapBuilder<String>().newRuleMap();
+    }
     
     @Test
-	public void put() {
+    public void put() {
         RuleMapBuilder<String> rules = new RuleMapBuilder<String>();
         rules.rule()
                   .check(one, new Find("a")).check(one, new Find("b")).put("X");
@@ -30,9 +30,9 @@ public class RuleMapTest {
     Object one = "ONE";
     Object two = "TWO";
     
-	@Test
-	public void equals() {
-		Equals equals = new Equals("X");
+    @Test
+    public void equals() {
+        Equals equals = new Equals("X");
         assertTrue(equals.equals(equals));
         assertFalse(new Equals("X").equals("X"));
         assertTrue(new Equals("X").equals(new Equals("X")));
@@ -49,18 +49,18 @@ public class RuleMapTest {
         assertFalse(new Equals(null).test("X"));
     }
     
-	@Test
-	public void get() {
+    @Test
+    public void get() {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
         newRules.rule().check(one, new Condition() {
-			public boolean test(Object object) {
-				return true;
-			}
-		}).put("X");
+            public boolean test(Object object) {
+                return true;
+            }
+        }).put("X");
     }
     
     @Test
-	public void notFound() {
+    public void notFound() {
         RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
         newRules.rule()
                 .check(one, new Equals("A")).check(one, new Equals("B")).put("W");
@@ -101,8 +101,8 @@ public class RuleMapTest {
         assertEquals(strings.size(), 0);
     }
     
-	@Test(expectedExceptions = NullPointerException.class)
-	public void npePutExpression() {
-		new RuleMapBuilder<String>().put(null, "X");
-	}
+    @Test(expectedExceptions = NullPointerException.class)
+    public void npePutExpression() {
+        new RuleMapBuilder<String>().put(null, "X");
+    }
 }
