@@ -33,35 +33,35 @@ public class RuleSetBuilder<T> {
      * 
      * @return A duplicate of this rule set.
      */
-	public RuleSetBuilder<T> duplicate() {
-		Map<Object, Set<Condition>> newExpression = new HashMap<Object, Set<Condition>>();
-		for (Map.Entry<Object, Set<Condition>> entry : expression.entrySet()) {
-			newExpression.put(entry.getKey(), new HashSet<Condition>(entry.getValue()));
-		}
-		return new RuleSetBuilder<T>(rules, newExpression);
+    public RuleSetBuilder<T> duplicate() {
+        Map<Object, Set<Condition>> newExpression = new HashMap<Object, Set<Condition>>();
+        for (Map.Entry<Object, Set<Condition>> entry : expression.entrySet()) {
+            newExpression.put(entry.getKey(), new HashSet<Condition>(entry.getValue()));
+        }
+        return new RuleSetBuilder<T>(rules, newExpression);
     }
 
-	/**
-	 * Add the given condition to the set of conditions associated with the
-	 * given key.
-	 * 
-	 * @param key
-	 *            The key.
-	 * @param condition
-	 *            The condition to add to the set of conditions.
-	 */
-	public  RuleSetBuilder<T> check(Object key, Condition condition) {
-    	Set<Condition> conditions = expression.get(key);
-		if (conditions == null) {
-			conditions = new HashSet<Condition>();
-			expression.put(key, conditions);
-		}
-		conditions.add(condition);
-		return this;
+    /**
+     * Add the given condition to the set of conditions associated with the
+     * given key.
+     * 
+     * @param key
+     *            The key.
+     * @param condition
+     *            The condition to add to the set of conditions.
+     */
+    public  RuleSetBuilder<T> check(Object key, Condition condition) {
+        Set<Condition> conditions = expression.get(key);
+        if (conditions == null) {
+            conditions = new HashSet<Condition>();
+            expression.put(key, conditions);
+        }
+        conditions.add(condition);
+        return this;
     }
 
-	// TODO Document.
-	public void put(T value) {
+    // TODO Document.
+    public void put(T value) {
         rules.put(expression, value);
     }
 }
