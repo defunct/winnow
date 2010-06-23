@@ -9,29 +9,47 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
-// FIXME Rename deviate.
+// TODO Document.
 public class RuleMap<T> {
-    // TODO Document.
+    /** The map of identifiers to object values. */
     private final Map<Integer, T> values;
     
-    // TODO Document.
+    /** The map of identifiers to the conditions that match them. */
     private final Map<Integer, Map<Object, Set<Condition>>> toCondition;
     
-    // TODO Document.
+    /** The map of conditions to the identifiers they match. */
     private final Map<Map<Object, Condition>, Set<Integer>> toIdentifier;
-    
-    // TODO Document.
-    public RuleMap(Map<Integer, T> values, Map<Integer, Map<Object, Set<Condition>>> toCondition, Map<Map<Object, Condition>, Set<Integer>> toIdentifier) {
+
+    /**
+     * Create a new rule map.
+     * 
+     * @param values
+     *            The map of identifiers to object values.
+     * @param toCondition
+     *            The map of identifiers to the conditions that match them.
+     * @param toIdentifier
+     *            The map of conditions to the identifiers they match.
+     */
+    RuleMap(Map<Integer, T> values, Map<Integer, Map<Object, Set<Condition>>> toCondition, Map<Map<Object, Condition>, Set<Integer>> toIdentifier) {
         this.values = values;
         this.toCondition = toCondition;
         this.toIdentifier = toIdentifier;
     }
-    
-    // TODO Document.
+
+    /**
+     * Return a list of objects that match the given set of conditions in the
+     * order in which they were specified by the rule set builder.
+     * 
+     * @param map
+     *            The map of conditions.
+     * @return The objects that match the conditions in the order in which they
+     *         were mapped.
+     */
     public List<T> get(Map<Object, Object> map) {
         // Create a copy for elimination.
-        Map<Integer, Map<Object, Set<Condition>>> tests = new HashMap<Integer, Map<Object,Set<Condition>>>();
+        Map<Integer, Map<Object, Set<Condition>>> tests = new TreeMap<Integer, Map<Object,Set<Condition>>>();
         for (Map.Entry<Integer, Map<Object, Set<Condition>>> test : toCondition.entrySet()) {
             Map<Object, Set<Condition>> newConditions = new HashMap<Object, Set<Condition>>();
             for (Map.Entry<Object, Set<Condition>> conditions: test.getValue().entrySet()) {
