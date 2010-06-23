@@ -12,7 +12,7 @@ import java.util.Set;
 
 // TODO Document.
 public class RuleMapBuilder<T> {
-    // TODO Document.
+    /** The map of unique identifiers to object values. */
     private final Map<Integer, T> values;
     
     // TODO Document.
@@ -59,13 +59,26 @@ public class RuleMapBuilder<T> {
             }
         }
     }
-    
-    // TODO Document.
+
+    /**
+     * Create a new rule in the rule builder.
+     * 
+     * @return A rule set builder to specify a rule for the rule map.
+     */
     public RuleSetBuilder<T> rule() {
         return new RuleSetBuilder<T>(this, new HashMap<Object, Set<Condition>>());
     }
-    
-    // TODO Document.
+
+    /**
+     * Create a rule map from the rules defined by this rule builder.
+     * <p>
+     * The rule map will have a copy of the rule definitions, so that the
+     * builder can be used to further specify a subsequent rule map. Not a
+     * terribly useful feature, but it is a property of the buidler none the
+     * less.
+     * 
+     * @return A new rule map.
+     */
     public RuleMap<T> newRuleMap() {
         // Dirty means we've added new conditions. If so, we need to copy
         // them over to our local

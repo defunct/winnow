@@ -26,6 +26,9 @@ public class Equals implements Condition {
      * @return True if the given object is equal to the expected object.
      */
     public boolean test(Object object) {
+        if (expected == null) {
+            return object == null;
+        }
         return expected.equals(object);
     }
 
@@ -44,7 +47,7 @@ public class Equals implements Condition {
         }
         if (object instanceof Equals) {
             Equals equals = (Equals) object;
-            return expected.equals(equals.expected);
+            return test(equals.expected);
         }
         return false;
     }
@@ -52,11 +55,11 @@ public class Equals implements Condition {
     /**
      * Generate a hash code from the hash code of the expected object.
      * 
-     * @reutrn The hash code.
+     * @return The hash code.
      */
     @Override
     public int hashCode() {
-        return expected == null ? 17 : expected.hashCode();
+        return expected == null ? getClass().hashCode() : expected.hashCode();
     }
 
     /**
