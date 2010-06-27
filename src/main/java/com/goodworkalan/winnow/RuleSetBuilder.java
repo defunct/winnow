@@ -15,15 +15,15 @@ import java.util.Set;
  * @param <T>
  *            The type of value object.
  */
-public class RuleSetBuilder<T> {
-    // TODO Document.
-    private final RuleMapBuilder<T> rules;
+public class RuleSetBuilder<K, T> {
+    /** The rule map builder to which this rule set belongs. */
+    private final RuleMapBuilder<K, T> rules;
     
-    // TODO Document.
-    protected final Map<Object, Set<Condition>> expression;
+    /** The map of map keys to the set of conditions to apply against their values. */ 
+    protected final Map<K, Set<Condition>> expression;
     
-    // TODO Document.
-    public RuleSetBuilder(RuleMapBuilder<T> rules, Map<Object, Set<Condition>> expression) {
+    // TODO Document. 
+    public RuleSetBuilder(RuleMapBuilder<K, T> rules, Map<K, Set<Condition>> expression) {
         this.rules = rules;
         this.expression = expression;
     }
@@ -33,12 +33,12 @@ public class RuleSetBuilder<T> {
      * 
      * @return A duplicate of this rule set.
      */
-    public RuleSetBuilder<T> duplicate() {
-        Map<Object, Set<Condition>> newExpression = new HashMap<Object, Set<Condition>>();
-        for (Map.Entry<Object, Set<Condition>> entry : expression.entrySet()) {
+    public RuleSetBuilder<K, T> duplicate() {
+        Map<K, Set<Condition>> newExpression = new HashMap<K, Set<Condition>>();
+        for (Map.Entry<K, Set<Condition>> entry : expression.entrySet()) {
             newExpression.put(entry.getKey(), new HashSet<Condition>(entry.getValue()));
         }
-        return new RuleSetBuilder<T>(rules, newExpression);
+        return new RuleSetBuilder<K, T>(rules, newExpression);
     }
 
     /**
@@ -50,7 +50,7 @@ public class RuleSetBuilder<T> {
      * @param condition
      *            The condition to add to the set of conditions.
      */
-    public  RuleSetBuilder<T> check(Object key, Condition condition) {
+    public  RuleSetBuilder<K, T> check(K key, Condition condition) {
         Set<Condition> conditions = expression.get(key);
         if (conditions == null) {
             conditions = new HashSet<Condition>();

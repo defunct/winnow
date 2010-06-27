@@ -13,12 +13,12 @@ import org.testng.annotations.Test;
 public class RuleMapTest {
     @Test
     public void create() {
-        new RuleMapBuilder<String>().newRuleMap();
+        new RuleMapBuilder<Object, String>().newRuleMap();
     }
     
     @Test
     public void put() {
-        RuleMapBuilder<String> rules = new RuleMapBuilder<String>();
+        RuleMapBuilder<Object, String> rules = new RuleMapBuilder<Object, String>();
         rules.rule()
                   .check(one, new Find("a")).check(one, new Find("b")).put("X");
         Map<Object, Object> conditions = new HashMap<Object, Object>();
@@ -41,7 +41,7 @@ public class RuleMapTest {
         assertFalse(new Equals("X").equals(new Equals(null)));
         assertFalse(new Equals(null).equals(new Equals("X")));
         assertEquals(new Equals("X").hashCode(), "X".hashCode());
-        assertEquals(new Equals(null).hashCode(), 17);
+        assertEquals(new Equals(null).hashCode(), Equals.class.hashCode());
         assertTrue(new Equals("X").test("X"));
         assertFalse(new Equals("X").test("Y"));
         assertTrue(new Equals(null).test(null));
@@ -51,7 +51,7 @@ public class RuleMapTest {
     
     @Test
     public void get() {
-        RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
+        RuleMapBuilder<Object, String> newRules = new RuleMapBuilder<Object, String>();
         newRules.rule().check(one, new Condition() {
             public boolean test(Object object) {
                 return true;
@@ -61,7 +61,7 @@ public class RuleMapTest {
     
     @Test
     public void notFound() {
-        RuleMapBuilder<String> newRules = new RuleMapBuilder<String>();
+        RuleMapBuilder<Object, String> newRules = new RuleMapBuilder<Object, String>();
         newRules.rule()
                 .check(one, new Equals("A")).check(one, new Equals("B")).put("W");
         newRules.rule()
@@ -83,7 +83,7 @@ public class RuleMapTest {
         newRules.rule()
                 .check(one, new Equals("D"))
                 .check(two, new Equals("C")).put("P");
-        RuleMap<String> rules = newRules.newRuleMap();
+        RuleMap<Object, String> rules = newRules.newRuleMap();
         Map<Object, Object> conditions = new HashMap<Object, Object>();
         conditions.put(one, "A");
         conditions.put(two, "B");
@@ -103,6 +103,6 @@ public class RuleMapTest {
     
     @Test(expectedExceptions = NullPointerException.class)
     public void npePutExpression() {
-        new RuleMapBuilder<String>().put(null, "X");
+        new RuleMapBuilder<Object, String>().put(null, "X");
     }
 }

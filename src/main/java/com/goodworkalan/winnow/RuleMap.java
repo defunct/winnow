@@ -11,16 +11,26 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-// TODO Document.
-public class RuleMap<T> {
+/**
+ * Associates a set of rules with an object value.
+ * 
+ * @author Alan Gutierrez
+ * 
+ * @param <K>
+ *            The key of the map to test.
+ * @param <V>
+ *            The type to associate with a successful application of condition
+ *            set.
+ */
+public class RuleMap<K, V> {
     /** The map of identifiers to object values. */
-    private final Map<Integer, T> values;
+    private final Map<Integer, V> values;
     
     /** The map of identifiers to the conditions that match them. */
-    private final Map<Integer, Map<Object, Set<Condition>>> toCondition;
+    private final Map<Integer, Map<K, Set<Condition>>> toCondition;
     
     /** The map of conditions to the identifiers they match. */
-    private final Map<Map<Object, Condition>, Set<Integer>> toIdentifier;
+    private final Map<Map<K, Condition>, Set<Integer>> toIdentifier;
 
     /**
      * Create a new rule map.
@@ -32,7 +42,7 @@ public class RuleMap<T> {
      * @param toIdentifier
      *            The map of conditions to the identifiers they match.
      */
-    RuleMap(Map<Integer, T> values, Map<Integer, Map<Object, Set<Condition>>> toCondition, Map<Map<Object, Condition>, Set<Integer>> toIdentifier) {
+    RuleMap(Map<Integer, V> values, Map<Integer, Map<K, Set<Condition>>> toCondition, Map<Map<K, Condition>, Set<Integer>> toIdentifier) {
         this.values = values;
         this.toCondition = toCondition;
         this.toIdentifier = toIdentifier;
@@ -47,40 +57,40 @@ public class RuleMap<T> {
      * @return The objects that match the conditions in the order in which they
      *         were mapped.
      */
-    public List<T> get(Map<Object, Object> map) {
+    public List<V> get(Map<K, ?> map) {
         // Create a copy for elimination.
-        Map<Integer, Map<Object, Set<Condition>>> tests = new TreeMap<Integer, Map<Object,Set<Condition>>>();
-        for (Map.Entry<Integer, Map<Object, Set<Condition>>> test : toCondition.entrySet()) {
-            Map<Object, Set<Condition>> newConditions = new HashMap<Object, Set<Condition>>();
-            for (Map.Entry<Object, Set<Condition>> conditions: test.getValue().entrySet()) {
+        Map<Integer, Map<K, Set<Condition>>> tests = new TreeMap<Integer, Map<K, Set<Condition>>>();
+        for (Map.Entry<Integer, Map<K, Set<Condition>>> test : toCondition.entrySet()) {
+            Map<K, Set<Condition>> newConditions = new HashMap<K, Set<Condition>>();
+            for (Map.Entry<K, Set<Condition>> conditions: test.getValue().entrySet()) {
                 newConditions.put(conditions.getKey(), new HashSet<Condition>(conditions.getValue()));
             }
             tests.put(test.getKey(), newConditions);
         }
 
-        Map<Map<Object, Condition>, Set<Integer>> identifiers = new LinkedHashMap<Map<Object,Condition>, Set<Integer>>();
-        for (Map.Entry<Map<Object, Condition>, Set<Integer>> entry : toIdentifier.entrySet()) {
+        Map<Map<K, Condition>, Set<Integer>> identifiers = new LinkedHashMap<Map<K, Condition>, Set<Integer>>();
+        for (Map.Entry<Map<K, Condition>, Set<Integer>> entry : toIdentifier.entrySet()) {
             identifiers.put(entry.getKey(), new HashSet<Integer>(entry.getValue()));
         }
         
         // Pull the first condition from the remaining conditions, while there 
         // are still conditions.
         while (identifiers.size() != 0) {
-            Map.Entry<Map<Object, Condition>, Set<Integer>> entry = identifiers.entrySet().iterator().next();
+            Map.Entry<Map<K, Condition>, Set<Integer>> entry = identifiers.entrySet().iterator().next();
 
             identifiers.remove(entry.getKey());
          
             // Get the object key and condition. 
-            Map.Entry<Object, Condition> test = entry.getKey().entrySet().iterator().next();
+            Map.Entry<K, Condition> test = entry.getKey().entrySet().iterator().next();
             
             if (test.getValue().test(map.get(test.getKey()))) {
                 for (int id : entry.getValue()) {
-                    Map<Object, Set<Condition>> expression = tests.get(id);
+                    Map<K, Set<Condition>> expression = tests.get(id);
                     Iterator<Condition> or = expression.get(test.getKey()).iterator();
                     while (or.hasNext()) {
                         Condition condition = or.next();
                         if (!condition.equals(test.getValue())) {
-                            Map<Object, Condition> c = Collections.singletonMap(test.getKey(), condition);
+                            Map<K, Condition> c = Collections.singletonMap(test.getKey(), condition);
                             Set<Integer> usage = identifiers.get(c);
                             usage.remove(id);
                             if (usage.size() == 0) {
@@ -92,15 +102,15 @@ public class RuleMap<T> {
                 }
             } else {
                 for (int id : entry.getValue()) {
-                    Map<Object, Set<Condition>> expression = tests.get(id);
+                    Map<K, Set<Condition>> expression = tests.get(id);
                     Set<Condition> or = expression.get(test.getKey());
                     or.remove(test.getValue());
                     if (or.size() == 0) {
                         tests.remove(id);
                         expression.remove(test.getKey());
-                        for (Map.Entry<Object, Set<Condition>> foo : expression.entrySet()) {
+                        for (Map.Entry<K, Set<Condition>> foo : expression.entrySet()) {
                             for (Condition bar : foo.getValue()) {
-                                Map<Object, Condition> c = Collections.singletonMap(foo.getKey(), bar);
+                                Map<K, Condition> c = Collections.singletonMap(foo.getKey(), bar);
                                 Set<Integer> usage = identifiers.get(c);
                                 if (usage != null) {
                                     usage.remove(id);
@@ -115,7 +125,7 @@ public class RuleMap<T> {
             }
         }
         
-        List<T> objects = new ArrayList<T>();
+        List<V> objects = new ArrayList<V>();
         for (int id : tests.keySet()) {
             objects.add(values.get(id));
         }
