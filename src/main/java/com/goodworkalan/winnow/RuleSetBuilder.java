@@ -28,7 +28,15 @@ public class RuleSetBuilder<K, T> {
     /** The map of map keys to the set of conditions to apply against their values. */ 
     protected final Map<K, Set<Condition>> expression;
     
-    // TODO Document. 
+    /**
+     * Create a rule set builder.
+     * 
+     * @param rules
+     *            The rule map builder to which this rule set belongs.
+     * @param expression
+     *            The map of map keys to the set of conditions to apply against
+     *            their values.
+     */
     public RuleSetBuilder(RuleMapBuilder<K, T> rules, Map<K, Set<Condition>> expression) {
         this.rules = rules;
         this.expression = expression;
@@ -66,7 +74,12 @@ public class RuleSetBuilder<K, T> {
         return this;
     }
 
-    // TODO Document.
+    /**
+     * Assign the value associated with a match of this rule set.
+     * 
+     * @param value
+     *            The associated value.
+     */
     public void put(T value) {
         rules.put(expression, value);
     }
