@@ -10,7 +10,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// TODO Document.
+/**
+ * Builds a rule map by associating a set of conditions to be applied to a the
+ * map value returned by a specific map key.
+ * 
+ * @author Alan Gutierrez
+ * 
+ * @param <K>
+ *            The key of the map to test.
+ * @param <T>
+ *            The type to associate with a successful application of condition
+ *            set.
+ */
 public class RuleMapBuilder<K, T> {
     /** The map of unique identifiers to object values. */
     private final Map<Integer, T> values;

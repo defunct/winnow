@@ -6,14 +6,20 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Build a set of rules to associate with an object. This is easier than
- * building the multi-map by hand. The each client of the library would have to
- * rewrite the test to determine if the set has already been created.
+ * Builds a set of conditions to be applied to a the map value returned by a
+ * specific map key.
+ * <p>
+ * This is easier than building the multi-map by hand. The each client of the
+ * library would have to rewrite the test to determine if the set has already
+ * been created.
  * 
  * @author Alan Gutierrez
  * 
+ * @param <K>
+ *            The key of the map to test.
  * @param <T>
- *            The type of value object.
+ *            The type to associate with a successful application of condition
+ *            set.
  */
 public class RuleSetBuilder<K, T> {
     /** The rule map builder to which this rule set belongs. */

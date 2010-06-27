@@ -18,13 +18,13 @@ import java.util.TreeMap;
  * 
  * @param <K>
  *            The key of the map to test.
- * @param <V>
+ * @param <T>
  *            The type to associate with a successful application of condition
  *            set.
  */
-public class RuleMap<K, V> {
+public class RuleMap<K, T> {
     /** The map of identifiers to object values. */
-    private final Map<Integer, V> values;
+    private final Map<Integer, T> values;
     
     /** The map of identifiers to the conditions that match them. */
     private final Map<Integer, Map<K, Set<Condition>>> toCondition;
@@ -42,7 +42,7 @@ public class RuleMap<K, V> {
      * @param toIdentifier
      *            The map of conditions to the identifiers they match.
      */
-    RuleMap(Map<Integer, V> values, Map<Integer, Map<K, Set<Condition>>> toCondition, Map<Map<K, Condition>, Set<Integer>> toIdentifier) {
+    RuleMap(Map<Integer, T> values, Map<Integer, Map<K, Set<Condition>>> toCondition, Map<Map<K, Condition>, Set<Integer>> toIdentifier) {
         this.values = values;
         this.toCondition = toCondition;
         this.toIdentifier = toIdentifier;
@@ -57,7 +57,7 @@ public class RuleMap<K, V> {
      * @return The objects that match the conditions in the order in which they
      *         were mapped.
      */
-    public List<V> get(Map<K, ?> map) {
+    public List<T> get(Map<K, ?> map) {
         // Create a copy for elimination.
         Map<Integer, Map<K, Set<Condition>>> tests = new TreeMap<Integer, Map<K, Set<Condition>>>();
         for (Map.Entry<Integer, Map<K, Set<Condition>>> test : toCondition.entrySet()) {
@@ -125,7 +125,7 @@ public class RuleMap<K, V> {
             }
         }
         
-        List<V> objects = new ArrayList<V>();
+        List<T> objects = new ArrayList<T>();
         for (int id : tests.keySet()) {
             objects.add(values.get(id));
         }
