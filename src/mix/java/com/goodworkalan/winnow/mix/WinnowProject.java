@@ -19,7 +19,7 @@ public class WinnowProject implements ProjectModule {
     public void build(Builder builder) {
         builder
             .cookbook(JavaProject.class)
-                .produces("com.github.bigeasy.winnow/winnow/0.1")
+                .produces("com.github.bigeasy.winnow/winnow/0.1.0.1")
                 .depends()
                     .development("org.testng/testng-jdk15/5.10")
                     .end()

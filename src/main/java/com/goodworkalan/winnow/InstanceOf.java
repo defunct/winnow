@@ -8,16 +8,20 @@ package com.goodworkalan.winnow;
 public class InstanceOf implements Condition {
     /** Test to see if the property is an instance of this class. */
     private final Class<?> targetClass;
+    
+    /** Whether the object to test is an instance or a class. */
+    private final boolean instance;
 
     /**
      * Create an instance of test that will test to see if the property is an
      * instance of the given class.
      * 
      * @param targetClass
-     *            Test to see if the proeprty is an instance of this class.
+     *            Test to see if the property is an instance of this class.
      */
-    public InstanceOf(Class<?> targetClass) {
+    public InstanceOf(Class<?> targetClass, boolean instance) {
         this.targetClass = targetClass;
+        this.instance = instance;
     }
 
     /**
@@ -31,7 +35,7 @@ public class InstanceOf implements Condition {
      */
     public boolean test(Object object) {
         return object != null
-                && targetClass.isAssignableFrom(object.getClass());
+                && targetClass.isAssignableFrom(instance ? object.getClass() : (Class<?>) object);
     }
 
     /**
